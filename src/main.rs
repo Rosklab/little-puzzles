@@ -4,16 +4,22 @@ use std::io::BufRead;
 use std::io::BufReader;
 use std::process;
 
+mod house_present;
+
 const PUZZLE_2015_01_01: &str = "2015_01_01";
 const PUZZLE_2015_01_02: &str = "2015_01_02";
 const PUZZLE_2015_02_01: &str = "2015_02_01";
 const PUZZLE_2015_02_02: &str = "2015_02_02";
+const PUZZLE_2015_03_01: &str = "2015_03_01";
+const PUZZLE_2015_03_02: &str = "2015_03_02";
 
-const PUZZLES: [&str; 4] = [
+const PUZZLES: [&str; 6] = [
     PUZZLE_2015_01_01,
     PUZZLE_2015_01_02,
     PUZZLE_2015_02_01,
     PUZZLE_2015_02_02,
+    PUZZLE_2015_03_01,
+    PUZZLE_2015_03_02,
 ];
 
 struct Config {
@@ -48,7 +54,7 @@ fn find_last_floor(input: String) -> i32 {
     return floor;
 }
 
-fn find_last_floor_from_buf_reader(buf_reader: BufReader<File>) {
+fn find_last_floor_from_file(buf_reader: BufReader<File>) {
     for (index, line) in buf_reader.lines().enumerate() {
         let result = find_last_floor(line.unwrap());
         println!("Index {index} result {result}");
@@ -76,7 +82,7 @@ fn find_first_basement_position(input: String) -> i32 {
     return -1;
 }
 
-fn find_first_basement_position_from_buf_reader(buf_reader: BufReader<File>) {
+fn find_first_basement_position_from_file(buf_reader: BufReader<File>) {
     for (index, line) in buf_reader.lines().enumerate() {
         let result = find_first_basement_position(line.unwrap());
         println!("Index {index} result {result}");
@@ -107,7 +113,7 @@ fn find_wrapping_paper_square(edge_sizes: Vec<i32>) -> i32 {
     return total_square;
 }
 
-fn find_wrapping_paper_square_from_buf_reader(buf_reader: BufReader<File>) {
+fn find_wrapping_paper_square_from_file(buf_reader: BufReader<File>) {
     let mut total_square = 0;
     for (index, line) in buf_reader.lines().enumerate() {
         let edge_sizes: Vec<i32> = line
@@ -147,7 +153,7 @@ fn find_ribbon_length(edge_sizes: Vec<i32>) -> i32 {
     return total_length;
 }
 
-fn find_ribbon_length_from_buf_reader(buf_reader: BufReader<File>) {
+fn find_ribbon_length_from_file(buf_reader: BufReader<File>) {
     let mut total_length = 0;
     for (index, line) in buf_reader.lines().enumerate() {
         let edge_sizes: Vec<i32> = line
@@ -174,10 +180,12 @@ fn main() {
 
     let buf_reader = read_lines(config.file_path);
     match puzzle {
-        PUZZLE_2015_01_01 => find_last_floor_from_buf_reader(buf_reader),
-        PUZZLE_2015_01_02 => find_first_basement_position_from_buf_reader(buf_reader),
-        PUZZLE_2015_02_01 => find_wrapping_paper_square_from_buf_reader(buf_reader),
-        PUZZLE_2015_02_02 => find_ribbon_length_from_buf_reader(buf_reader),
+        PUZZLE_2015_01_01 => find_last_floor_from_file(buf_reader),
+        PUZZLE_2015_01_02 => find_first_basement_position_from_file(buf_reader),
+        PUZZLE_2015_02_01 => find_wrapping_paper_square_from_file(buf_reader),
+        PUZZLE_2015_02_02 => find_ribbon_length_from_file(buf_reader),
+        PUZZLE_2015_03_01 => house_present::find_houses_count_from_file(buf_reader),
+        PUZZLE_2015_03_02 => house_present::find_houses_count_two_delivery_from_file(buf_reader),
         _ => panic!(),
     }
 }
