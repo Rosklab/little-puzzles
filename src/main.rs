@@ -6,6 +6,7 @@ use std::process;
 
 mod house_present;
 mod mining;
+mod string_censor;
 
 const PUZZLE_2015_01_01: &str = "2015_01_01";
 const PUZZLE_2015_01_02: &str = "2015_01_02";
@@ -15,8 +16,9 @@ const PUZZLE_2015_03_01: &str = "2015_03_01";
 const PUZZLE_2015_03_02: &str = "2015_03_02";
 const PUZZLE_2015_04_01: &str = "2015_04_01";
 const PUZZLE_2015_04_02: &str = "2015_04_02";
+const PUZZLE_2015_05_01: &str = "2015_05_01";
 
-const PUZZLES: [&str; 8] = [
+const PUZZLES: [&str; 9] = [
     PUZZLE_2015_01_01,
     PUZZLE_2015_01_02,
     PUZZLE_2015_02_01,
@@ -25,6 +27,7 @@ const PUZZLES: [&str; 8] = [
     PUZZLE_2015_03_02,
     PUZZLE_2015_04_01,
     PUZZLE_2015_04_02,
+    PUZZLE_2015_05_01,
 ];
 
 struct Config {
@@ -193,6 +196,7 @@ fn main() {
         PUZZLE_2015_03_02 => house_present::find_houses_count_two_delivery_from_file(buf_reader),
         PUZZLE_2015_04_01 => mining::find_mining_number_for_five_zeroes_from_file(buf_reader),
         PUZZLE_2015_04_02 => mining::find_mining_number_for_six_zeroes_from_file(buf_reader),
+        PUZZLE_2015_05_01 => string_censor::count_nice_string(buf_reader),
         _ => panic!(),
     }
 }
